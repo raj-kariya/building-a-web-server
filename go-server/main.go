@@ -26,6 +26,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request){
 	}
 	if r.Method != "GET"{
 		http.Error(w, "method is not supported", http.StatusNotFound)
+		return
 	}
 	fmt.Fprintf(w, "hello")
 }

@@ -12,10 +12,12 @@ func formHandler(w http.ResponseWriter, r *http.Request){
 		fmt.Fprintf(w, "ParseForm() err: %v",err)
 		return
 	}
-	if r.Method != "GET"{
-		http.Error(w, "method is not supported", http.StatusNotFound)
-	}
-	fmt.Fprintf(w, "hello")
+	fmt.Fprintf(w, "Post Request is successful")
+	name := r.FormValue("name")
+	address := r.FormValue("address")
+	//Whatever the user have written on the form we will print it here 
+	fmt.Fprintf(w, "name:- %s\n", name)
+	fmt.Fprintf(w, "address:- %s\n", address)
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request){
@@ -34,7 +36,7 @@ func main()  {
 	http.HandleFunc("/form",formHandler)
 	http.HandleFunc("/hello",helloHandler)
 
-	fmt.Printf("Starting Server at port 8000\n")
+	fmt.Printf("Starting Server at port 8080\n")
 
 	if err := http.ListenAndServe(":8080", nil); err != nil{
 		log.Fatal(err)

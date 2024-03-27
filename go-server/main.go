@@ -16,13 +16,14 @@ func formHandler(w http.ResponseWriter, r *http.Request){
 	name := r.FormValue("name")
 	address := r.FormValue("address")
 	//Whatever the user have written on the form we will print it here 
-	fmt.Fprintf(w, "name:- %s\n", name)
-	fmt.Fprintf(w, "address:- %s\n", address)
+	fmt.Fprintf(w, "Name:- %s\n", name)
+	fmt.Fprintf(w, "Address:- %s\n", address)
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request){
 	if r.URL.Path != "/hello"{
 		http.Error(w, "404 Not Found", http.StatusNotFound)
+		return
 	}
 	if r.Method != "GET"{
 		http.Error(w, "method is not supported", http.StatusNotFound)
@@ -32,7 +33,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request){
 }
 
 func main()  {
-	fileServer := http.FileServer(http.Dir("./static"))
+	fileServer := http.FileServer(http.Dir("/Users/rajkariya/go/src/go-server/static"))
 	http.Handle("/",fileServer)
 	http.HandleFunc("/form",formHandler)
 	http.HandleFunc("/hello",helloHandler)
